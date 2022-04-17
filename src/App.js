@@ -5,16 +5,21 @@ import Search from "./pages/Search";
 import Home from "./pages/Home";
 
 class BooksApp extends React.Component {
-  state = {
-    //
-  }
 
   render() {
     return (
       <div className="app">
         <Routes>
-          <Route exact path='/' element={<Home/>} />
-          <Route exact path='/search' element={<Search/>} />
+          <Route
+              exact
+              path='/'
+              element={<Home/>}
+          />
+         <Route
+             exact
+              path='/search'
+              element={<Search/>}
+          />
         </Routes>
       </div>
     )

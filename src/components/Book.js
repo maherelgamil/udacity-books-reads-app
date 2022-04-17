@@ -1,6 +1,19 @@
 import React, {Component} from "react";
+import {update as updateBook} from "../BooksAPI";
 
 export default class Book extends Component {
+
+    changeShelf = (book, shelf) => {
+        updateBook(book, shelf)
+            .then(() => {
+                // fire event to update the shelf of the book
+                this.props.onShelfUpdate();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     render() {
         const {book} = this.props;
 
@@ -16,9 +29,7 @@ export default class Book extends Component {
                              }}
                         ></div>
                         <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={(e) => {
-                                this.props.onChangeShelf(book, e.target.value);
-                            }}>
+                            <select value={book.shelf || 'none'} onChange={(e) => this.changeShelf(book, e.target.value)}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>
@@ -32,5 +43,5 @@ export default class Book extends Component {
                 </div>
             </li>
         );
-    }
+    };
 }
