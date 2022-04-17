@@ -14,6 +14,7 @@ export default class BookShield extends Component {
                     <Book
                         key={book.id}
                         book={book}
+                        shelf={book.shelf}
                         onShelfUpdate={onShelfUpdate}
                     />
                   ))}

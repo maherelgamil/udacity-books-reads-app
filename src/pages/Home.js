@@ -1,29 +1,11 @@
 import React, {Component} from "react";
 import BookShield from "../components/BookShield";
 import SearchBtn from "../components/SearchBtn";
-import { getAll as getAllBooks} from "../BooksAPI";
 
 export default class Home extends Component {
-    state = {
-        books: [],
-    };
-
-    componentDidMount() {
-        this.updateBooks();
-    };
-
-    updateBooks() {
-        getAllBooks()
-            .then(books => {
-                this.setState({books});
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
 
     render() {
-        const {books} = this.state;
+        const {books, onShelfUpdate} = this.props;
 
         return (
             <div className="list-books">
@@ -35,17 +17,17 @@ export default class Home extends Component {
                         <BookShield
                             title="Currently Reading"
                             books={books.filter(book => book.shelf === "currentlyReading")}
-                            onShelfUpdate={() => this.updateBooks()}
+                            onShelfUpdate={onShelfUpdate}
                         />
                         <BookShield
                             title="Want to Read"
                             books={books.filter(book => book.shelf === "wantToRead")}
-                            onShelfUpdate={() => this.updateBooks()}
+                            onShelfUpdate={onShelfUpdate}
                         />
                         <BookShield
                             title="Read"
                             books={books.filter(book => book.shelf === "read")}
-                            onShelfUpdate={() => this.updateBooks()}
+                            onShelfUpdate={onShelfUpdate}
                         />
                     </div>
                 </div>
